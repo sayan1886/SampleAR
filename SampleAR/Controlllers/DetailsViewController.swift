@@ -71,14 +71,32 @@ class DetailsViewController: UIViewController, UICollectionViewDataSource, UICol
         cell.backgroundColor = .white
         cell.imageView.image = image
         
-        
         cell.contentView.layer.cornerRadius = 2.0
         cell.contentView.layer.borderWidth = 1.0
         cell.contentView.layer.borderColor = UIColor.blue.cgColor
         cell.contentView.layer.masksToBounds = true;
 
-        
         return cell
+    }
+    
+    //MARK - Collection View Delegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let image = photo(for: indexPath)
+        let imageView = UIImageView(image: image)
+        imageView.frame = self.view.frame
+        imageView.backgroundColor = .black
+        imageView.contentMode = .center
+        imageView.isUserInteractionEnabled = true
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        imageView.addGestureRecognizer(tap)
+
+        self.view.addSubview(imageView)
+    }
+
+    // Use to back from full mode
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        sender.view?.removeFromSuperview()
     }
     
     //MARK: - Networking
