@@ -77,6 +77,7 @@
 		17ACD4B5247576E100588F06 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		17ACD4BF2475A8D000588F06 /* PlaneAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneAnimation.swift; sourceTree = "<group>"; };
 		17ACD4C22475A91600588F06 /* plane.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = plane.scnassets; sourceTree = "<group>"; };
+		17ACD4C52475AD4A00588F06 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5B62C8B16A84A78E40041FEC /* Pods-SampleAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleAR.release.xcconfig"; path = "Target Support Files/Pods-SampleAR/Pods-SampleAR.release.xcconfig"; sourceTree = "<group>"; };
 		65B5D58DF71282E463AFE098 /* Pods-SampleARTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleARTests.release.xcconfig"; path = "Target Support Files/Pods-SampleARTests/Pods-SampleARTests.release.xcconfig"; sourceTree = "<group>"; };
 		71B983818DD6B8490AA7EAEB /* Pods-SampleARUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleARUITests.debug.xcconfig"; path = "Target Support Files/Pods-SampleARUITests/Pods-SampleARUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +122,7 @@
 		17ACD4692474F0C800588F06 = {
 			isa = PBXGroup;
 			children = (
+				17ACD4C52475AD4A00588F06 /* README.md */,
 				17ACD4742474F0C800588F06 /* SampleAR */,
 				17ACD48E2474F0CA00588F06 /* SampleARTests */,
 				17ACD4992474F0CA00588F06 /* SampleARUITests */,
