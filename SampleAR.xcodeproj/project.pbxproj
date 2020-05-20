@@ -137,19 +137,12 @@
 		17ACD4742474F0C800588F06 /* SampleAR */ = {
 			isa = PBXGroup;
 			children = (
-				17ACD4752474F0C800588F06 /* AppDelegate.swift */,
-				17ACD4772474F0C800588F06 /* SceneDelegate.swift */,
-				17ACD4792474F0C800588F06 /* ViewController.swift */,
-				17ACD4B124752A5C00588F06 /* DetailsViewController.swift */,
-				17ACD4B5247576E100588F06 /* ARViewController.swift */,
-				17ACD47B2474F0C800588F06 /* Main.storyboard */,
-				17ACD4812474F0CA00588F06 /* Assets.xcassets */,
-				17ACD4832474F0CA00588F06 /* LaunchScreen.storyboard */,
-				17ACD4862474F0CA00588F06 /* Info.plist */,
-				17ACD47E2474F0C800588F06 /* SampleAR.xcdatamodeld */,
-				17ACD4A82474F7B000588F06 /* DataSet.swift */,
-				17ACD4AB2475213B00588F06 /* SampleAR.swift */,
-				17ACD4AE2475214F00588F06 /* AFWrapper.swift */,
+				17ACD4BE24758B3600588F06 /* Assets */,
+				17ACD4BC24758AF100588F06 /* AppDelegate */,
+				17ACD4B924758AAB00588F06 /* Controlllers */,
+				17ACD4BB24758AE100588F06 /* Helper */,
+				17ACD4BA24758AC600588F06 /* Model */,
+				17ACD4BD24758B1200588F06 /* Storyboard */,
 			);
 			path = SampleAR;
 			sourceTree = "<group>";
@@ -170,6 +163,61 @@
 				17ACD49C2474F0CA00588F06 /* Info.plist */,
 			);
 			path = SampleARUITests;
+			sourceTree = "<group>";
+		};
+		17ACD4B924758AAB00588F06 /* Controlllers */ = {
+			isa = PBXGroup;
+			children = (
+				17ACD4792474F0C800588F06 /* ViewController.swift */,
+				17ACD4B124752A5C00588F06 /* DetailsViewController.swift */,
+				17ACD4B5247576E100588F06 /* ARViewController.swift */,
+			);
+			path = Controlllers;
+			sourceTree = "<group>";
+		};
+		17ACD4BA24758AC600588F06 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				17ACD4A82474F7B000588F06 /* DataSet.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		17ACD4BB24758AE100588F06 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				17ACD4AB2475213B00588F06 /* SampleAR.swift */,
+				17ACD4AE2475214F00588F06 /* AFWrapper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		17ACD4BC24758AF100588F06 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				17ACD4752474F0C800588F06 /* AppDelegate.swift */,
+				17ACD4772474F0C800588F06 /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		17ACD4BD24758B1200588F06 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				17ACD47B2474F0C800588F06 /* Main.storyboard */,
+				17ACD4832474F0CA00588F06 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		17ACD4BE24758B3600588F06 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				17ACD4812474F0CA00588F06 /* Assets.xcassets */,
+				17ACD4862474F0CA00588F06 /* Info.plist */,
+				17ACD47E2474F0C800588F06 /* SampleAR.xcdatamodeld */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		2791ACF03ED797B471E93230 /* Pods */ = {
@@ -612,7 +660,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NHBHM58ET9;
-				INFOPLIST_FILE = SampleAR/Info.plist;
+				INFOPLIST_FILE = SampleAR/Assets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -631,7 +679,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NHBHM58ET9;
-				INFOPLIST_FILE = SampleAR/Info.plist;
+				INFOPLIST_FILE = SampleAR/Assets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
