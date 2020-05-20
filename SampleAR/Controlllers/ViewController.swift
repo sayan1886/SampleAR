@@ -30,12 +30,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "All Datasets"
         
         //Add Spinner
         self.spinner = JHSpinnerView.showOnView(self.view, spinnerColor:UIColor.blue, overlay:.custom(CGSize(width: 300, height: 200), 20), overlayColor:UIColor.black.withAlphaComponent(0.6), fullCycleTime:4.0, text:"Loading")
-        view.addSubview(spinner)
+        view.addSubview(self.spinner)
         
         let params = [String : String] ()
         self.getDataSets(url: SampleAR.URL(baseURL: SampleAR.BASE_URL, path: SampleAR.ALL_DATA_SET_PATH, params: [:]), parameters: params)

@@ -24,6 +24,7 @@ class DetailsViewController: UIViewController, UICollectionViewDataSource, UICol
     private let itemsPerRow: CGFloat = 2
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var button: UIButton!
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -37,12 +38,16 @@ class DetailsViewController: UIViewController, UICollectionViewDataSource, UICol
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Dataset"
         
         //Add Spinner
-        self.spinner = JHSpinnerView.showOnView(self.view, spinnerColor:UIColor.blue, overlay:.custom(CGSize(width: 300, height: 200), 20), overlayColor:UIColor.black.withAlphaComponent(0.6), fullCycleTime:4.0, text:"Loading")
-        view.addSubview(spinner)
+//        self.spinner = JHSpinnerView.showOnView(self.view, spinnerColor:UIColor.blue, overlay:.custom(CGSize(width: 300, height: 200), 20), overlayColor:UIColor.black.withAlphaComponent(0.6), fullCycleTime:4.0, text:"Loading")
+//        view.addSubview(spinner)
+        
+        self.spinner = JHSpinnerView.showDeterminiteSpinnerOnView(self.view)
+        spinner.progress = 0.0
+        view.addSubview(self.spinner)
         
         var params = [String : String] ()
         for param in SampleAR.DATS_SET_PATH_PARAMS {
@@ -94,9 +99,13 @@ class DetailsViewController: UIViewController, UICollectionViewDataSource, UICol
 //                    print(filePath)
                     self.unzipFile(unzipPath: filePath)
                     
-                }) { (error) in
-                    print(error.localizedDescription)
-                }
+        }, failure: { (error) in
+            print(error.localizedDescription)
+        }, update: { (progress) in
+            let floatValue = NSNumber.init(value: (progress as AnyObject).fractionCompleted).floatValue
+            print (floatValue)
+            self.spinner.progress = CGFloat(floatValue)
+        })
     }
     
     //MARK: - JSON Parsing
@@ -128,6 +137,7 @@ class DetailsViewController: UIViewController, UICollectionViewDataSource, UICol
         }
         self.spinner.dismiss()
         self.collectionView.reloadData()
+        self.button.isEnabled = true
     }
     
     func contentsOfDirectory(at: URL, recursive: Bool ) -> [URL] {

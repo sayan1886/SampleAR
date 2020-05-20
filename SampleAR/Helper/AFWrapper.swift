@@ -27,7 +27,7 @@ class AFWrapper: NSObject {
         }
     }
     
-    class func downloadURL(_ strURL: String, fileName: String, success:@escaping (Any, String) -> Void, failure:@escaping (Error) -> Void) {
+    class func downloadURL(_ strURL: String, fileName: String, success:@escaping (Any, String) -> Void, failure:@escaping (Error) -> Void, update:@escaping (Any) -> Void) {
         
         let destination : DownloadRequest.Destination = { _, _ in
             var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -39,8 +39,9 @@ class AFWrapper: NSObject {
         let progressQueue = DispatchQueue(label: "com.samplear.progressQueue", qos: .utility)
 
         AF.download(strURL, to: destination)
-            .downloadProgress(queue: progressQueue) { progress in
-                print("Download Progress: \(progress.fractionCompleted)")
+            .downloadProgress(queue: progressQueue ) { progress in
+//                print("Download Progress: \(progress.fractionCompleted)")
+                update(progress)
             }
             .responseData { (responseObject) -> Void in
                 print(responseObject)

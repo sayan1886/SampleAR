@@ -141,7 +141,7 @@
                                     <outlet property="delegate" destination="17C-jw-Z7A" id="Tu7-PE-X5x"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bnh-m1-7Ad">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bnh-m1-7Ad">
                                 <rect key="frame" x="20" y="802" width="374" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="bt8-HD-GYm"/>
@@ -167,6 +167,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="tgX-je-pdn"/>
                     <connections>
+                        <outlet property="button" destination="Bnh-m1-7Ad" id="riq-73-fk8"/>
                         <outlet property="collectionView" destination="rJp-Bb-Od7" id="AiY-lg-ho4"/>
                     </connections>
                 </viewController>
