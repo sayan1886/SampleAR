@@ -183,7 +183,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" loops="NO" playing="YES" allowsCameraControl="YES" autoenablesDefaultLighting="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w4V-aj-vvg">
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w4V-aj-vvg">
                                 <rect key="frame" x="0.0" y="88" width="414" height="740"/>
                                 <connections>
                                     <outlet property="delegate" destination="0Gx-bN-i1m" id="a5C-5J-Wdk"/>

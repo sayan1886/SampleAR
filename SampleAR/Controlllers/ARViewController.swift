@@ -9,10 +9,14 @@
 import Foundation
 import UIKit
 import ARKit
+import SceneKit
 
 class ARViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet weak var sceneView: ARSCNView!
+    private var planeNode: SCNNode?
+    private var imageNode: SCNNode?
+    private var animation: PlaneAnimation?
     
     private let configuration = ARWorldTrackingConfiguration()
     
@@ -24,7 +28,19 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.sceneView.session.run(configuration)
+        // Load reference images to look for from "AR Resources" folder
+        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else {
+            fatalError("Missing expected asset catalog resources.")
+        }
+        
+        // Create a session configuration
+        let configuration = ARWorldTrackingConfiguration()
+        
+        // Add previously loaded images to ARScene configuration as detectionImages
+        configuration.detectionImages = referenceImages
+        
+        // Run the view's session
+        sceneView.session.run(configuration)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -34,62 +50,102 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
 
     //MARK: - Setup Scene
     func setUpSceneView()  {
-        configuration.planeDetection = .horizontal
-        
-        sceneView.session.run(configuration)
-        
+        let scene = SCNScene()
+        sceneView.scene = scene
         sceneView.delegate = self
-        
-        // Show statistics such as fps and timing information
-        self.sceneView.showsStatistics = true
-        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+    }
+    
+    func refreshAnimationVariables(startTime: TimeInterval, initialPosition: SIMD3<Float>, finalPosition: SIMD3<Float>, initialOrientation: simd_quatf, finalOrientation: simd_quatf) {
+        let distance = simd_distance(initialPosition, finalPosition)
+        // Average speed of movement is 0.15 m/s.
+        let speed = Float(0.15)
+        // Total time is calculated as distance/speed. Min time is set to 0.1s and max is set to 2s.
+        let animationDuration = Double(min(max(0.1, distance/speed), 2))
+        // Store animation information for later usage.
+        animation = PlaneAnimation(startTime: startTime,
+                                      duration: animationDuration,
+                                      initialModelPosition: initialPosition,
+                                      finalModelPosition: finalPosition,
+                                      initialModelOrientation: initialOrientation,
+                                      finalModelOrientation: finalOrientation)
     }
     
     //MARK: - ARSCNView Delegate
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-         // 1
-         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+         guard let imageAnchor = anchor as? ARImageAnchor else {
+             return
+         }
          
-         // 2
-         let width = CGFloat(planeAnchor.extent.x)
-         let height = CGFloat(planeAnchor.extent.z)
-         let plane = SCNPlane(width: width, height: height)
+         // 1. Load plane's scene.
+         let planeScene = SCNScene(named: "plane.scnassets/plane.scn")!
+         let planeNode = planeScene.rootNode.childNode(withName: "planeRootNode", recursively: true)!
          
-         // 3
-         plane.materials.first?.diffuse.contents = UIColor.blue
+         // 2. Calculate size based on planeNode's bounding box.
+         let (min, max) = planeNode.boundingBox
+         let size = SCNVector3Make(max.x - min.x, max.y - min.y, max.z - min.z)
          
-         // 4
-         let planeNode = SCNNode(geometry: plane)
+         // 3. Calculate the ratio of difference between real image and object size.
+         // Ignore Y axis because it will be pointed out of the image.
+         let widthRatio = Float(imageAnchor.referenceImage.physicalSize.width)/size.x
+         let heightRatio = Float(imageAnchor.referenceImage.physicalSize.height)/size.z
+         // Pick smallest value to be sure that object fits into the image.
+         let finalRatio = [widthRatio, heightRatio].min()!
          
-         // 5
-         let x = CGFloat(planeAnchor.center.x)
-         let y = CGFloat(planeAnchor.center.y)
-         let z = CGFloat(planeAnchor.center.z)
-         planeNode.position = SCNVector3(x,y,z)
-         planeNode.eulerAngles.x = -.pi / 2
+         // 4. Set transform from imageAnchor data.
+         planeNode.transform = SCNMatrix4(imageAnchor.transform)
          
-         // 6
-         node.addChildNode(planeNode)
+         // 5. Animate appearance by scaling model from 0 to previously calculated value.
+         let appearanceAction = SCNAction.scale(to: CGFloat(finalRatio), duration: 0.4)
+         appearanceAction.timingMode = .easeOut
+         // Set initial scale to 0.
+         planeNode.scale = SCNVector3Make(0.001, 0.001, 0.001)
+         // Add to root node.
+         sceneView.scene.rootNode.addChildNode(planeNode)
+         // Run the appearance animation.
+         planeNode.runAction(appearanceAction)
+         
+         self.planeNode = planeNode
+         self.imageNode = node
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        // 1
-        guard let planeAnchor = anchor as?  ARPlaneAnchor,
-        let planeNode = node.childNodes.first,
-        let plane = planeNode.geometry as? SCNPlane
-        else { return }
-         
-        // 2
-        let width = CGFloat(planeAnchor.extent.x)
-        let height = CGFloat(planeAnchor.extent.z)
-        plane.width = width
-        plane.height = height
-         
-        // 3
-        let x = CGFloat(planeAnchor.center.x)
-        let y = CGFloat(planeAnchor.center.y)
-        let z = CGFloat(planeAnchor.center.z)
-        planeNode.position = SCNVector3(x, y, z)
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        guard let imageNode = imageNode, let planeNode = planeNode else {
+            return
+        }
+        
+        // 1. Unwrap animationInfo. Calculate animationInfo if it is nil.
+        guard let animationInfo = animation else {
+            refreshAnimationVariables(startTime: time,
+                                      initialPosition: planeNode.simdWorldPosition,
+                                      finalPosition: imageNode.simdWorldPosition,
+                                      initialOrientation: planeNode.simdWorldOrientation,
+                                      finalOrientation: imageNode.simdWorldOrientation)
+            return
+        }
+        
+        // 2. Calculate new animationInfo if image position or orientation changed.
+        if !simd_equal(animationInfo.finalModelPosition, imageNode.simdWorldPosition) || animationInfo.finalModelOrientation != imageNode.simdWorldOrientation {
+            
+            refreshAnimationVariables(startTime: time,
+                                      initialPosition: planeNode.simdWorldPosition,
+                                      finalPosition: imageNode.simdWorldPosition,
+                                      initialOrientation: planeNode.simdWorldOrientation,
+                                      finalOrientation: imageNode.simdWorldOrientation)
+        }
+        
+        // 3. Calculate interpolation based on passedTime/totalTime ratio.
+        let passedTime = time - animationInfo.startTime
+        var t = min(Float(passedTime/animationInfo.duration), 1)
+        // Applying curve function to time parameter to achieve "ease out" timing
+        t = sin(t * .pi * 0.5)
+        
+        // 4. Calculate and set new model position and orientation.
+        let f3t = simd_make_float3(t, t, t)
+        planeNode.simdWorldPosition = simd_mix(animationInfo.initialModelPosition, animationInfo.finalModelPosition, f3t)
+        planeNode.simdWorldOrientation = simd_slerp(animationInfo.initialModelOrientation, animationInfo.finalModelOrientation, t)
+        //planeNode.simdWorldOrientation = imageNode.simdWorldOrientation
     }
+    
+    
 }
 

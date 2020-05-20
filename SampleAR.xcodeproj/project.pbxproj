@@ -28,6 +28,10 @@
 		17ACD4B6247576E100588F06 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ACD4B5247576E100588F06 /* ARViewController.swift */; };
 		17ACD4B7247576E100588F06 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ACD4B5247576E100588F06 /* ARViewController.swift */; };
 		17ACD4B8247576E100588F06 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ACD4B5247576E100588F06 /* ARViewController.swift */; };
+		17ACD4C02475A8D000588F06 /* PlaneAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ACD4BF2475A8D000588F06 /* PlaneAnimation.swift */; };
+		17ACD4C12475A8D000588F06 /* PlaneAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ACD4BF2475A8D000588F06 /* PlaneAnimation.swift */; };
+		17ACD4C32475A91600588F06 /* plane.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 17ACD4C22475A91600588F06 /* plane.scnassets */; };
+		17ACD4C42475A91600588F06 /* plane.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 17ACD4C22475A91600588F06 /* plane.scnassets */; };
 		1D3F1FC9AD7E0BC191CA69A3 /* Pods_SampleARUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7458F23DA4B1AED86B5C5A02 /* Pods_SampleARUITests.framework */; };
 		9C31C6D2AE1E8C8839786822 /* Pods_SampleARTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9955250D7A11ED81ACBDC32 /* Pods_SampleARTests.framework */; };
 		C4F65ED4DA7088B274EE2C0F /* Pods_SampleAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A73A1A36CAEC4F6BE6075942 /* Pods_SampleAR.framework */; };
@@ -71,6 +75,8 @@
 		17ACD4AE2475214F00588F06 /* AFWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFWrapper.swift; sourceTree = "<group>"; };
 		17ACD4B124752A5C00588F06 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		17ACD4B5247576E100588F06 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
+		17ACD4BF2475A8D000588F06 /* PlaneAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneAnimation.swift; sourceTree = "<group>"; };
+		17ACD4C22475A91600588F06 /* plane.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = plane.scnassets; sourceTree = "<group>"; };
 		5B62C8B16A84A78E40041FEC /* Pods-SampleAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleAR.release.xcconfig"; path = "Target Support Files/Pods-SampleAR/Pods-SampleAR.release.xcconfig"; sourceTree = "<group>"; };
 		65B5D58DF71282E463AFE098 /* Pods-SampleARTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleARTests.release.xcconfig"; path = "Target Support Files/Pods-SampleARTests/Pods-SampleARTests.release.xcconfig"; sourceTree = "<group>"; };
 		71B983818DD6B8490AA7EAEB /* Pods-SampleARUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleARUITests.debug.xcconfig"; path = "Target Support Files/Pods-SampleARUITests/Pods-SampleARUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -179,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				17ACD4A82474F7B000588F06 /* DataSet.swift */,
+				17ACD4BF2475A8D000588F06 /* PlaneAnimation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,6 +220,7 @@
 		17ACD4BE24758B3600588F06 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				17ACD4C22475A91600588F06 /* plane.scnassets */,
 				17ACD4812474F0CA00588F06 /* Assets.xcassets */,
 				17ACD4862474F0CA00588F06 /* Info.plist */,
 				17ACD47E2474F0C800588F06 /* SampleAR.xcdatamodeld */,
@@ -353,6 +361,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17ACD4C32475A91600588F06 /* plane.scnassets in Resources */,
 				17ACD4852474F0CA00588F06 /* LaunchScreen.storyboard in Resources */,
 				17ACD4822474F0CA00588F06 /* Assets.xcassets in Resources */,
 				17ACD47D2474F0C800588F06 /* Main.storyboard in Resources */,
@@ -363,6 +372,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17ACD4C42475A91600588F06 /* plane.scnassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +481,7 @@
 				17ACD4A92474F7B000588F06 /* DataSet.swift in Sources */,
 				17ACD4B6247576E100588F06 /* ARViewController.swift in Sources */,
 				17ACD4B224752A5C00588F06 /* DetailsViewController.swift in Sources */,
+				17ACD4C02475A8D000588F06 /* PlaneAnimation.swift in Sources */,
 				17ACD4762474F0C800588F06 /* AppDelegate.swift in Sources */,
 				17ACD4802474F0C800588F06 /* SampleAR.xcdatamodeld in Sources */,
 				17ACD4782474F0C800588F06 /* SceneDelegate.swift in Sources */,
@@ -486,6 +497,7 @@
 				17ACD4AA2474F7B000588F06 /* DataSet.swift in Sources */,
 				17ACD4B02475214F00588F06 /* AFWrapper.swift in Sources */,
 				17ACD4B7247576E100588F06 /* ARViewController.swift in Sources */,
+				17ACD4C12475A8D000588F06 /* PlaneAnimation.swift in Sources */,
 				17ACD4902474F0CA00588F06 /* SampleARTests.swift in Sources */,
 				17ACD4B324752A5C00588F06 /* DetailsViewController.swift in Sources */,
 			);
